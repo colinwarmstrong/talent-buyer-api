@@ -5,4 +5,7 @@ class Venue < ApplicationRecord
                         :state,
                         :zip,
                         :capacity
+
+  belongs_to :buyer
+  has_many :shows
 end

@@ -12,4 +12,8 @@ RSpec.describe Offer, type: :model do
     it { should validate_presence_of(:age_range) }
     it { should validate_presence_of(:merch_split) }
   end
+  context 'Relationships' do
+    it { should belong_to(:show) }
+    it { should belong_to(:artist) }
+  end
 end

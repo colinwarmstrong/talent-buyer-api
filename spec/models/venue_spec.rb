@@ -9,4 +9,8 @@ RSpec.describe Venue, type: :model do
     it { should validate_presence_of(:zip) }
     it { should validate_presence_of(:capacity) }
   end
+  context 'Relationships' do
+    it { should belong_to(:buyer) }
+    it { should have_many(:shows) }
+  end
 end

@@ -6,4 +6,7 @@ RSpec.describe Artist, type: :model do
     it { should validate_presence_of(:genre) }
     it { should validate_presence_of(:songkick_id) }
   end
+  context 'Relationships' do
+    it { should have_many(:offers) }
+  end
 end

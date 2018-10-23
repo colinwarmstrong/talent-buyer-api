@@ -8,4 +8,7 @@ class Offer < ApplicationRecord
                         :door_times,
                         :age_range,
                         :merch_split
+
+  belongs_to :artist
+  belongs_to :show
 end

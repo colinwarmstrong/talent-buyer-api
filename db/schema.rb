@@ -24,16 +24,14 @@ ActiveRecord::Schema.define(version: 2018_10_23_210641) do
   create_table "buyers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.bigint "venues_id"
     t.string "email"
     t.integer "phone"
-    t.index ["venues_id"], name: "index_buyers_on_venues_id"
   end
 
   create_table "offers", force: :cascade do |t|
     t.integer "status"
     t.bigint "show_id"
-    t.bigint "artists_id"
+    t.bigint "artist_id"
     t.integer "guarantee"
     t.text "bonuses"
     t.text "radius_clause"
@@ -42,28 +40,30 @@ ActiveRecord::Schema.define(version: 2018_10_23_210641) do
     t.text "door_times"
     t.string "age_range"
     t.text "merch_split"
-    t.index ["artists_id"], name: "index_offers_on_artists_id"
+    t.index ["artist_id"], name: "index_offers_on_artist_id"
     t.index ["show_id"], name: "index_offers_on_show_id"
   end
 
   create_table "shows", force: :cascade do |t|
-    t.bigint "venues_id"
+    t.bigint "venue_id"
     t.date "date"
     t.integer "show_status", default: 0
-    t.index ["venues_id"], name: "index_shows_on_venues_id"
+    t.index ["venue_id"], name: "index_shows_on_venue_id"
   end
 
   create_table "venues", force: :cascade do |t|
     t.string "name"
+    t.bigint "buyer_id"
     t.text "street_address"
     t.string "city"
     t.string "state"
     t.integer "zip"
     t.integer "capacity"
+    t.index ["buyer_id"], name: "index_venues_on_buyer_id"
   end
 
-  add_foreign_key "buyers", "venues", column: "venues_id"
-  add_foreign_key "offers", "artists", column: "artists_id"
+  add_foreign_key "offers", "artists"
   add_foreign_key "offers", "shows"
-  add_foreign_key "shows", "venues", column: "venues_id"
+  add_foreign_key "shows", "venues"
+  add_foreign_key "venues", "buyers"
 end

@@ -3,7 +3,7 @@ class CreateOffers < ActiveRecord::Migration[5.2]
     create_table :offers do |t|
       t.integer :status
       t.references :show, foreign_key: true
-      t.references :artists, foreign_key: true
+      t.references :artist, foreign_key: true
       t.integer :guarantee
       t.text :bonuses
       t.text :radius_clause
