@@ -6,7 +6,9 @@ RSpec.describe 'POST /signup', type: :request do
     {
       buyer: {
         email: 'buyer@example.com',
-        password: 'password'
+        password: 'password',
+        first_name: 'Billy',
+        last_name: 'Mays'
       }
     }
   end
@@ -19,7 +21,11 @@ RSpec.describe 'POST /signup', type: :request do
     end
 
     it 'returns a new buyer' do
-      expect(response.body).to match_schema('buyer')
+      new_buyer = JSON.parse(response.body, symbolize_names: true)
+
+      expect(new_buyer[:email]).to eq('buyer@example.com')
+      expect(new_buyer[:first_name]).to eq('Billy')
+      expect(new_buyer[:last_name]).to eq('Mays')
     end
   end
 
@@ -34,7 +40,8 @@ RSpec.describe 'POST /signup', type: :request do
     end
 
     it 'returns validation errors' do
-      expect(json['errors'].first['title']).to eq('Bad Request')
+      validation_errors = JSON.parse(response.body, symbolize_names: true)
+      expect(validation_errors[:errors].first[:title]).to eq('Bad Request')
     end
   end
 end

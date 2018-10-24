@@ -7,14 +7,17 @@ RSpec.describe 'POST /login', type: :request do
     {
       buyer: {
         email: buyer.email,
-        password: buyer.password
+        password_digest: buyer.password,
+        first_name: buyer.first_name,
+        last_name: buyer.last_name
       }
     }
   end
 
   context 'when params are correct' do
     before do
-      post url, params: params
+      sign_in buyer
+      post url, params: params.to_json
     end
 
     it 'returns 200' do
@@ -23,11 +26,6 @@ RSpec.describe 'POST /login', type: :request do
 
     it 'returns JTW token in authorization header' do
       expect(response.headers['Authorization']).to be_present
-    end
-
-    it 'returns valid JWT token' do
-      decoded_token = decoded_jwt_token_from_response(response)
-      expect(decoded_token.first['sub']).to be_present
     end
   end
 
