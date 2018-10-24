@@ -17,7 +17,7 @@ RSpec.describe 'POST /login', type: :request do
   context 'when params are correct' do
     before do
       sign_in buyer
-      post url, params: params.to_json
+      post url, params: params
     end
 
     it 'returns 200' do
