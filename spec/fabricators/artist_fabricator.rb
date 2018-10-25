@@ -1,5 +1,5 @@
 Fabricator(:artist) do
   name { 'Sepultura' }
-  genre { 'Heavy Metal' }
+  agency { 'Heavy Metal Boiz' }
   artist_songkick_id { 1234 }
 end
