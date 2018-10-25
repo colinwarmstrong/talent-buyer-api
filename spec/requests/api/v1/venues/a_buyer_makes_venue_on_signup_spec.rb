@@ -36,5 +36,34 @@ RSpec.describe 'POST api/v1/venues' do
       expect(response.status).to eq(400)
       expect(JSON.parse(response.body)['message']).to eq('Invalid venue parameters')
     end
+    it 'cannot create a duplicate venue' do
+      venue_body = { name: 'Weezy',
+        street_address: '1234 Swan Street',
+        city: 'A-Town',
+        state: 'Confusion',
+        zip: '12345',
+        capacity: '23',
+        venue_songkick_id: 98
+      }
+
+      Venue.create(venue_body)
+
+      expect(Venue.count).to eq(1)
+
+      post "/api/v1/venues", params: venue_body.to_json, headers: {'Content-Type': 'application/json'}
+
+      expect(Venue.count).to eq(1)
+
+      expect(response).to be_successful
+      expect(response.status).to eq(201)
+      expect(Venue.count).to eq(1)
+
+      new_venue = JSON.parse(response.body, symbolize_names: true)
+
+      expect(new_venue).to have_key(:name)
+      expect(new_venue).to have_key(:street_address)
+      expect(new_venue[:name]).to eq(venue_body[:name])
+      expect(new_venue[:street_address]).to eq(venue_body[:street_address])
+    end
   end
 end
