@@ -1,5 +1,11 @@
 Fabricator(:artist) do
   name { 'Sepultura' }
-  genre { 'Heavy Metal' }
-  artist_songkick_id { 1234 }
+  agency { 'Heavy Metal Boiz' }
+  genres { 'Heavy Metal' }
+  songkick_id { 1234 }
+  popularity { 12 }
+  image_url { 'yowutup' }
+  spotify_id { 'yowutup' }
+  spotify_url { 'yowutup' }
+  spotify_followers { 12222 }
 end

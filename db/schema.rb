@@ -17,8 +17,14 @@ ActiveRecord::Schema.define(version: 2018_10_24_231508) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
-    t.string "genre"
-    t.integer "artist_songkick_id"
+    t.string "agency"
+    t.string "genres"
+    t.string "image_url"
+    t.integer "popularity"
+    t.integer "songkick_id"
+    t.string "spotify_url"
+    t.string "spotify_id"
+    t.integer "spotify_followers"
   end
 
   create_table "buyer_venues", force: :cascade do |t|

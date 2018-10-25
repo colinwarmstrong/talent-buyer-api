@@ -9,7 +9,7 @@ class Api::V1::VenuesController < ApplicationController
   end
 
   def create
-    venue = Venue.create(venue_params)
+    venue = Venue.find_by_venue_songkick_id(venue_params[:venue_songkick_id]) || Venue.create(venue_params)
     if venue.id
       render json: venue, status: 201
     else

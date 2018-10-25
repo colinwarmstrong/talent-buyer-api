@@ -6,6 +6,8 @@ class Venue < ApplicationRecord
                         :zip,
                         :capacity,
                         :venue_songkick_id
+                        
+  validates_uniqueness_of :venue_songkick_id
 
   has_many :buyer_venues
   has_many :buyers, through: :buyer_venues
