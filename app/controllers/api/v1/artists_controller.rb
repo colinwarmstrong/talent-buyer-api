@@ -11,6 +11,6 @@ class Api::V1::ArtistsController < ApplicationController
   private
 
   def artist_params
-    params.permit(:name, :agency, :artist_songkick_id, :artist_spotify_id)
+    params.permit(:name, :agency, :genres, :songkick_id, :popularity, :image_url, :spotify_url, :spotify_followers, :spotify_id)
   end
 end

@@ -4,9 +4,14 @@ describe 'POST /api/v1/artists' do
   context 'a buyer creating an artist' do
     it 'will be stored in the database' do
       artist_payload = {  name: 'Yung Boi',
-                          agency: 'Whup',
-                          artist_songkick_id: 100,
-                          artist_spotify_id: 101
+                          agency: 'Warner Bros. Entertainment',
+                          genres: 'Metal Incrementally',
+                          songkick_id: 100,
+                          image_url: 'http://amazon.com',
+                          popularity: 78,
+                          spotify_id: '101',
+                          spotify_url: 'www.example.com',
+                          spotify_followers: 101
                         }
 
       expect(Artist.count).to eq(0)
