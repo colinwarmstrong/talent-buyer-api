@@ -4,8 +4,10 @@ class Venue < ApplicationRecord
                         :city,
                         :state,
                         :zip,
-                        :capacity
+                        :capacity,
+                        :venue_songkick_id
 
-  belongs_to :buyer
+  has_many :buyer_venues
+  has_many :buyers, through: :buyer_venues
   has_many :shows
 end

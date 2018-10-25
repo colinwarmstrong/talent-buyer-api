@@ -8,9 +8,10 @@ RSpec.describe Venue, type: :model do
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:zip) }
     it { should validate_presence_of(:capacity) }
+    it { should validate_presence_of(:venue_songkick_id) }
   end
   context 'Relationships' do
-    it { should belong_to(:buyer) }
-    it { should have_many(:shows) }
+    it { should have_many(:buyer_venues) }
+    it { should have_many(:buyers).through(:buyer_venues) }
   end
 end
