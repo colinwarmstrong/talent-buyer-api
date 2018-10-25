@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :venues, only: [:create, :show]
+      resources :offers, only: [:create]
     end
   end
 end
