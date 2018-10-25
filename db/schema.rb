@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_233517) do
+ActiveRecord::Schema.define(version: 2018_10_24_231508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 2018_10_23_233517) do
     t.string "name"
     t.string "genre"
     t.integer "songkick_id"
+  end
+
+  create_table "buyer_venues", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.bigint "venue_id"
+    t.index ["buyer_id"], name: "index_buyer_venues_on_buyer_id"
+    t.index ["venue_id"], name: "index_buyer_venues_on_venue_id"
   end
 
   create_table "buyers", force: :cascade do |t|
@@ -70,17 +77,16 @@ ActiveRecord::Schema.define(version: 2018_10_23_233517) do
 
   create_table "venues", force: :cascade do |t|
     t.string "name"
-    t.bigint "buyer_id"
     t.text "street_address"
     t.string "city"
     t.string "state"
     t.integer "zip"
     t.integer "capacity"
-    t.index ["buyer_id"], name: "index_venues_on_buyer_id"
   end
 
+  add_foreign_key "buyer_venues", "buyers"
+  add_foreign_key "buyer_venues", "venues"
   add_foreign_key "offers", "artists"
   add_foreign_key "offers", "shows"
   add_foreign_key "shows", "venues"
-  add_foreign_key "venues", "buyers"
 end

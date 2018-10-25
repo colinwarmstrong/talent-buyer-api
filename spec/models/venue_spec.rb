@@ -10,7 +10,7 @@ RSpec.describe Venue, type: :model do
     it { should validate_presence_of(:capacity) }
   end
   context 'Relationships' do
-    it { should belong_to(:buyer) }
-    it { should have_many(:shows) }
+    it { should have_many(:buyer_venues) }
+    it { should have_many(:buyers).through(:buyer_venues) }
   end
 end

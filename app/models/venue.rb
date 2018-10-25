@@ -6,6 +6,7 @@ class Venue < ApplicationRecord
                         :zip,
                         :capacity
 
-  belongs_to :buyer
+  has_many :buyer_venues
+  has_many :buyers, through: :buyer_venues
   has_many :shows
 end

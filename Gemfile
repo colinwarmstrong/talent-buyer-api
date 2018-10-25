@@ -27,7 +27,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise-jwt', '~> 0.5.8'
 gem 'figaro'
 gem 'rack-cors', require: 'rack/cors'
-
+gem 'active_model_serializers', '~> 0.10.0'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 
 group :development, :test do

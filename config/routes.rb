@@ -13,4 +13,9 @@ Rails.application.routes.draw do
                sessions: 'sessions',
                registrations: 'registrations'
              }
+  namespace :api do
+    namespace :v1 do
+      resources :venues, only: [:create, :show]
+    end
+  end
 end

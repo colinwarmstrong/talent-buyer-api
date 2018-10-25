@@ -1,7 +1,5 @@
 Fabricator(:venue) do
-  buyer
   name { 'ol saloon' }
-  buyer_id { 1 }
   street_address { '123 Swan Street' }
   city { 'Panama City' }
   state { 'Kansas' }
