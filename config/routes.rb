@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :venues, only: [:create, :show]
       resources :offers, only: [:create]
       resources :artists, only: [:create]
+      resources :shows, only: [:create]
     end
   end
 end
