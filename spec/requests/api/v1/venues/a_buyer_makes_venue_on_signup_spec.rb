@@ -8,9 +8,9 @@ RSpec.describe 'POST api/v1/venues' do
                      city: 'A-Town',
                      state: 'Confusion',
                      zip: '12345',
-                     capacity: '23',
+                     capacity: 23,
                      venue_songkick_id: 98
-                   }
+                    }
 
       post "/api/v1/venues", params: venue_body.to_json, headers: {'Content-Type': 'application/json'}
       expect(response).to be_successful
