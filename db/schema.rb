@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2018_10_24_231508) do
   end
 
   create_table "offers", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status", default: 0
     t.bigint "show_id"
     t.bigint "artist_id"
     t.integer "guarantee"

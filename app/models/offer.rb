@@ -11,4 +11,6 @@ class Offer < ApplicationRecord
 
   belongs_to :artist
   belongs_to :show
+
+  enum status: { pending: 0, accepted: 1, rejected: 2 }
 end
