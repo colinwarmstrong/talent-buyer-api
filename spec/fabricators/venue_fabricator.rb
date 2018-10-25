@@ -5,4 +5,5 @@ Fabricator(:venue) do
   state { 'Kansas' }
   zip { 12345 }
   capacity { 47 }
+  venue_songkick_id { 47 }
 end

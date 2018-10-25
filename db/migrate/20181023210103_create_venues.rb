@@ -7,6 +7,7 @@ class CreateVenues < ActiveRecord::Migration[5.2]
       t.string :state
       t.integer :zip
       t.integer :capacity
+      t.integer :venue_songkick_id
     end
   end
 end

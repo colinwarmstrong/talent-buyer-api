@@ -17,7 +17,6 @@ RSpec.describe 'POST /signup', type: :request do
     before { post url, params: params }
 
     it 'returns 200' do
-      binding.pry
       expect(response.status).to eq 200
     end
 

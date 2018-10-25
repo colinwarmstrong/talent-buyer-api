@@ -20,7 +20,7 @@ class Api::V1::VenuesController < ApplicationController
   private
 
   def venue_params
-    params.require(:venue).permit(:name, :street_address, :city, :state, :zip, :capacity)
+    params.require(:venue).permit(:name, :street_address, :city, :state, :zip, :capacity, :venue_songkick_id)
   end
 
   def venue

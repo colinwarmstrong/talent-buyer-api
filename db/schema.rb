@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2018_10_24_231508) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.string "genre"
-    t.integer "songkick_id"
+    t.integer "artist_songkick_id"
   end
 
   create_table "buyer_venues", force: :cascade do |t|
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2018_10_24_231508) do
     t.string "state"
     t.integer "zip"
     t.integer "capacity"
+    t.integer "venue_songkick_id"
   end
 
   add_foreign_key "buyer_venues", "buyers"
