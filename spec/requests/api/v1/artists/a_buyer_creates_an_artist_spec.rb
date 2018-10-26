@@ -37,7 +37,7 @@ describe 'POST /api/v1/artists' do
     it 'will not be created if parameters incorrect' do
       buyer = Fabricate(:buyer)
       sign_in buyer
-      
+
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Whup'
                         }
