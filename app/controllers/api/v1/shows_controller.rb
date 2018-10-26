@@ -1,4 +1,6 @@
 class Api::V1::ShowsController < ApplicationController
+  before_action :authenticate_buyer!
+
   def create
     show = Show.create(show_params)
     if show.id

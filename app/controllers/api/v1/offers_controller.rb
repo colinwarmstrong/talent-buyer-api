@@ -1,4 +1,6 @@
 class Api::V1::OffersController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     offer = Offer.create(offer_params)
     if offer.id
