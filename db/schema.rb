@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_24_231508) do
+ActiveRecord::Schema.define(version: 2018_10_26_231152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artist_genres", force: :cascade do |t|
+    t.bigint "artist_id"
+    t.bigint "genre_id"
+    t.index ["artist_id"], name: "index_artist_genres_on_artist_id"
+    t.index ["genre_id"], name: "index_artist_genres_on_genre_id"
+  end
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -51,6 +58,10 @@ ActiveRecord::Schema.define(version: 2018_10_24_231508) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_buyers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "jwt_blacklist", force: :cascade do |t|
@@ -91,6 +102,8 @@ ActiveRecord::Schema.define(version: 2018_10_24_231508) do
     t.integer "venue_songkick_id"
   end
 
+  add_foreign_key "artist_genres", "artists"
+  add_foreign_key "artist_genres", "genres"
   add_foreign_key "buyer_venues", "buyers"
   add_foreign_key "buyer_venues", "venues"
   add_foreign_key "offers", "artists"

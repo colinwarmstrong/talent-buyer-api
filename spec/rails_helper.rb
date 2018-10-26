@@ -3,6 +3,7 @@ require 'spec_helper'
 # note: require 'devise' after require 'rspec/rails'
 # note: require 'devise' after require 'rspec/rails'
 ENV['RAILS_ENV'] ||= 'test'
+
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter 'app/channels/application_cable/channel.rb'
@@ -10,6 +11,7 @@ SimpleCov.start 'rails' do
   add_filter 'app/jobs/application_job.rb'
   add_filter 'app/mailers/application_mailer.rb'
 end
+
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -57,15 +59,15 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  # config.before(:suite) do
-  #   DatabaseCleaner.strategy = :truncation
-  #   DatabaseCleaner.clean_with(:truncation)
-  # end
-  # config.around(:each) do |example|
-  #   DatabaseCleaner.cleaning do
-  #     example.run
-  #   end
-  # end
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
