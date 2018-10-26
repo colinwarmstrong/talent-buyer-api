@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 2018_10_26_231152) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.string "agency"
-    t.string "genres"
     t.string "image_url"
     t.integer "popularity"
     t.integer "songkick_id"
