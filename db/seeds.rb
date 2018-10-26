@@ -1,3 +1,5 @@
+require 'csv'
+
 buyer_1 = Buyer.create(first_name: 'Billy', last_name: 'Mays', email: 'silli@billi.com', password: '123456')
 buyer_2 = Buyer.create(first_name: 'Woody', last_name: 'Harrelson', email: 'wo@billi.com', password: '123456')
 
@@ -16,3 +18,17 @@ show_1.offers.create(artist_id: artist_1.id, guarantee: 47000, bonuses: 'content
 show_1.offers.create(artist_id: artist_2.id, guarantee: 47000, bonuses: 'contentment', radius_clause: 'No shows in 100 mile radius for next 60 days', total_expenses: 63000, gross_potential: 8000, door_times: '9am-5pm', age_range: '60', merch_split: '70-30')
 show_2.offers.create(artist_id: artist_2.id, guarantee: 47000, bonuses: 'contentment', radius_clause: 'No shows in 100 mile radius for next 60 days', total_expenses: 63000, gross_potential: 8000, door_times: '9am-5pm', age_range: '60', merch_split: '70-30')
 show_3.offers.create(artist_id: artist_3.id, guarantee: 47000, bonuses: 'contentment', radius_clause: 'No shows in 100 mile radius for next 60 days', total_expenses: 63000, gross_potential: 8000, door_times: '9am-5pm', age_range: '60', merch_split: '70-30')
+
+CSV.foreach('./db/data/artists.csv', headers: true, header_converters: :symbol) do |artist|
+  Artist.create(
+    name:               artist[:name],
+    agency:             artist[:agency],
+    genres:             artist[:genres],
+    image_url:          artist[:image_url],
+    popularity:         artist[:popularity],
+    songkick_id:        artist[:songkick_id],
+    spotify_url:        artist[:spotify_url],
+    spotify_id:         artist[:spotify_id],
+    spotify_followers:  artist[:spotify_followers]
+  )
+end
