@@ -1,5 +1,5 @@
 class Api::V1::ShowsController < ApplicationController
-  before_action :authenticate_buyer!
+  before_action :authenticate_buyer!, :buyer_signed_in?
 
   def create
     show = Show.create(show_params)

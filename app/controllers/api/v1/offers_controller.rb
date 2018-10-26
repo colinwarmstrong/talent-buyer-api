@@ -1,5 +1,5 @@
 class Api::V1::OffersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_buyer!, :buyer_signed_in?
 
   def create
     offer = Offer.create(offer_params)

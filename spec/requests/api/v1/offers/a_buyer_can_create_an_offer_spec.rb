@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe 'POST /api/v1/offers' do
   context 'a buyer creating an offer' do
+    before(:each) do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+    end
     it 'will be attached to a show and venue' do
       show    = Fabricate(:show)
       artist = Fabricate(:artist)
