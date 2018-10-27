@@ -62,7 +62,7 @@ class Api::V1::ArtistsController < ApplicationController
     elsif params[:sort] == 'followers'
       render json: @artists.order(spotify_followers: :desc), status: 200
     elsif params[:sort] == 'alphabetical'
-      render json: @artists.order(:name), status: 200
+      render json: @artists.order(Arel.sql('lower(name)')), status: 200
     else
       render json: @artists, status: 200
     end
