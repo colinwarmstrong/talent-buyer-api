@@ -2,10 +2,12 @@ require 'rails_helper'
 
 describe 'POST /api/v1/artists' do
   context 'a buyer creating an artist' do
-    it 'will be stored in the database' do
+    before :each do
       buyer = Fabricate(:buyer)
       sign_in buyer
+    end
 
+    it 'will be stored in the database' do
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Warner Bros. Entertainment',
                           genres: 'Metal Incrementally',
@@ -14,7 +16,8 @@ describe 'POST /api/v1/artists' do
                           popularity: 78,
                           spotify_id: '101',
                           spotify_url: 'www.example.com',
-                          spotify_followers: 101
+                          spotify_followers: 101,
+                          genres: 'Rock, Reggae'
                         }
 
       expect(Artist.count).to eq(0)
@@ -34,10 +37,8 @@ describe 'POST /api/v1/artists' do
       expect(new_artist[:artist_songkick_id]).to eq(artist_payload[:artist_songkick_id])
       expect(new_artist[:artist_spotify_id]).to eq(artist_payload[:artist_spotify_id])
     end
-    it 'will not be created if parameters incorrect' do
-      buyer = Fabricate(:buyer)
-      sign_in buyer
 
+    it 'will not be created if parameters incorrect' do
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Whup'
                         }
