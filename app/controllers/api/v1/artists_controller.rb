@@ -1,10 +1,12 @@
 class Api::V1::ArtistsController < ApplicationController
   before_action :authenticate_buyer!, :buyer_signed_in?
-  
+
   def index
     if params[:genre]
       artists = Genre.find_by(name: params[:genre].downcase).artists
       render json: artists, status: 200
+    elsif params[:sort]
+      artist_sort
     else
       render json: Artist.all, status: 200
     end
@@ -43,6 +45,12 @@ class Api::V1::ArtistsController < ApplicationController
     genres_list.split(', ').each do |genre|
       genre = Genre.find_or_create_by(name: genre.downcase)
       ArtistGenre.create(artist_id: artist.id, genre_id: genre.id)
+    end
+  end
+
+  def artist_sort
+    if params[:sort] == 'popularity'
+      render json: Artist.order(popularity: :desc)
     end
   end
 end
