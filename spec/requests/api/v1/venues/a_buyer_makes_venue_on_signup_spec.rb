@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'POST api/v1/venues' do
   context 'a buyer making an account' do
+    before(:each) do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+    end
     it 'is created with a venue' do
       venue_body = { name: 'Weezy',
                      street_address: '1234 Swan Street',

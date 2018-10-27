@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe 'POST /api/v1/shows' do
   context 'a buyer creating a show' do
+    before(:each) do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+    end
     it 'will be stored in the database' do
       venue = Fabricate(:venue)
 

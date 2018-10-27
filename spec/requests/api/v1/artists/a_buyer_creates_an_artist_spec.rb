@@ -8,6 +8,9 @@ describe 'POST /api/v1/artists' do
     end
 
     it 'will be stored in the database' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Warner Bros. Entertainment',
                           genres: 'Metal Incrementally',
@@ -39,6 +42,9 @@ describe 'POST /api/v1/artists' do
     end
 
     it 'will not be created if parameters incorrect' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Whup'
                         }
