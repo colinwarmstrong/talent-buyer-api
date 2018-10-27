@@ -31,6 +31,7 @@ CSV.foreach('./db/data/artists.csv', headers: true, header_converters: :symbol) 
     spotify_followers:  artist[:spotify_followers]
   )
   artist[:genres].split(', ').each do |genre|
-    new_artist.genres.create(name: genre)
+    genre = Genre.find_or_create_by(name: genre.downcase)
+    ArtistGenre.create(artist_id: new_artist.id, genre_id: genre.id)
   end
 end

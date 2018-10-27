@@ -11,7 +11,8 @@ describe 'POST /api/v1/artists' do
                           popularity: 78,
                           spotify_id: '101',
                           spotify_url: 'www.example.com',
-                          spotify_followers: 101
+                          spotify_followers: 101,
+                          genres: 'Rock, Reggae'
                         }
 
       expect(Artist.count).to eq(0)

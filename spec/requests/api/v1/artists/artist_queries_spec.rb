@@ -3,10 +3,16 @@ require 'rails_helper'
 describe 'Arist Endpoints' do
   context '/api/v1/artists/?genre=:genre' do
     it 'returns all artists by specified genre' do
-      artist_1 = Fabricate(:artist, genres: 'Rock', name: 'Beastie Bois')
-      artist_2 = Fabricate(:artist, genres: 'Rock', name: 'Beach Bois')
-      artist_3 = Fabricate(:artist, genres: 'Rap', name: 'New Bois')
-      artist_4 = Fabricate(:artist, genres: 'Reggae', name: 'Franchise Bois')
+      artist_1 = Fabricate(:artist, name: 'Beastie Bois')
+      artist_2 = Fabricate(:artist, name: 'Beach Bois')
+      artist_3 = Fabricate(:artist, name: 'New Bois')
+      artist_4 = Fabricate(:artist, name: 'Franchise Bois')
+
+      genre_1 = artist_1.genres.create(name: 'rock')
+      artist_2.artist_genres.create(genre_id: genre_1.id)
+
+      artist_3.genres.create(name: 'rap')
+      artist_4.genres.create(name: 'reggae')
 
       get '/api/v1/artists?genre=rock'
 

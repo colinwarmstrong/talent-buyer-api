@@ -5,7 +5,6 @@ RSpec.describe Artist, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:agency) }
     it { should validate_presence_of(:popularity) }
-    it { should validate_presence_of(:genres) }
     it { should validate_presence_of(:songkick_id) }
     it { should validate_presence_of(:image_url) }
     it { should validate_presence_of(:spotify_url) }

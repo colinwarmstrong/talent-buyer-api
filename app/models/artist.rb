@@ -9,6 +9,6 @@ class Artist < ApplicationRecord
                         :spotify_followers
 
   has_many :offers
-  has_many: :artist_genres
-  has_many: :genres, through: :artist_genres
+  has_many :artist_genres
+  has_many :genres, through: :artist_genres
 end
