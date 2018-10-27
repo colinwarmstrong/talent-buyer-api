@@ -1,13 +1,11 @@
 class Api::V1::ArtistsController < ApplicationController
   before_action :authenticate_buyer!, :buyer_signed_in?
-  
+
   def index
-    if params[:genre]
-      artists = Genre.find_by(name: params[:genre].downcase).artists
-      render json: artists, status: 200
-    else
-      render json: Artist.all, status: 200
-    end
+    @artists = Artist.all
+    filter_artist_genres
+    filter_artist_agency
+    artist_sort
   end
 
   def create
@@ -43,6 +41,30 @@ class Api::V1::ArtistsController < ApplicationController
     genres_list.split(', ').each do |genre|
       genre = Genre.find_or_create_by(name: genre.downcase)
       ArtistGenre.create(artist_id: artist.id, genre_id: genre.id)
+    end
+  end
+
+  def filter_artist_genres
+    if params[:genre]
+      @artists = Genre.find_by(name: params[:genre].downcase).artists
+    end
+  end
+
+  def filter_artist_agency
+    if params[:agency]
+      @artists.where(agency: params[:agency])
+    end
+  end
+
+  def artist_sort
+    if params[:sort] == 'popularity'
+      render json: @artists.order(popularity: :desc), status: 200
+    elsif params[:sort] == 'followers'
+      render json: @artists.order(spotify_followers: :desc), status: 200
+    elsif params[:sort] == 'alphabetical'
+      render json: @artists.order(:name), status: 200
+    else
+      render json: @artists, status: 200
     end
   end
 end
