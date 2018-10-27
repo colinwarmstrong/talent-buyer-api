@@ -52,7 +52,7 @@ class Api::V1::ArtistsController < ApplicationController
 
   def filter_artist_agency
     if params[:agency]
-      @artists.where(agency: params[:agency])
+      @artists = @artists.where('lower(agency) = ?', params[:agency].downcase)
     end
   end
 
