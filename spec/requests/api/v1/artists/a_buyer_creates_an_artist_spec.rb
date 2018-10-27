@@ -3,6 +3,9 @@ require 'rails_helper'
 describe 'POST /api/v1/artists' do
   context 'a buyer creating an artist' do
     it 'will be stored in the database' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Warner Bros. Entertainment',
                           genres: 'Metal Incrementally',
@@ -32,6 +35,9 @@ describe 'POST /api/v1/artists' do
       expect(new_artist[:artist_spotify_id]).to eq(artist_payload[:artist_spotify_id])
     end
     it 'will not be created if parameters incorrect' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Whup'
                         }

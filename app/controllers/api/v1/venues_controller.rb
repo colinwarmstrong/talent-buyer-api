@@ -1,4 +1,5 @@
 class Api::V1::VenuesController < ApplicationController
+  before_action :authenticate_buyer!, :buyer_signed_in?
 
   def show
     if venue

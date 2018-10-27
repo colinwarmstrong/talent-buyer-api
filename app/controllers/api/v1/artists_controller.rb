@@ -1,4 +1,6 @@
 class Api::V1::ArtistsController < ApplicationController
+  before_action :authenticate_buyer!, :buyer_signed_in?
+
   def create
     artist = Artist.create(artist_params)
     if artist.id

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'GET api/v1/venues/:id' do
   context 'a buyer viewing a venue' do
+    before(:each) do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+    end
     it 'is returned with that specific venue' do
       venue = Fabricate(:venue)
       get "/api/v1/venues/#{venue.id}"
