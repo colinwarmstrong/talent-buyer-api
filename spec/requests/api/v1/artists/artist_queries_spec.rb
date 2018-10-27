@@ -2,12 +2,10 @@ require 'rails_helper'
 
 describe 'Arist Endpoints' do
   context '/api/v1/artists' do
-    before :each do
+    it 'returns all artists' do
       buyer = Fabricate(:buyer)
       sign_in buyer
-    end
-    
-    it 'returns all artists' do
+
       artist_1 = Fabricate(:artist, name: 'Beastie Bois')
       artist_2 = Fabricate(:artist, name: 'Beach Bois')
       artist_3 = Fabricate(:artist, name: 'New Bois')
@@ -37,6 +35,9 @@ describe 'Arist Endpoints' do
 
   context '/api/v1/artists/?genre=:genre' do
     it 'returns all artists by specified genre' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
       artist_1 = Fabricate(:artist, name: 'Beastie Bois')
       artist_2 = Fabricate(:artist, name: 'Beach Bois')
       artist_3 = Fabricate(:artist, name: 'New Bois')

@@ -1,4 +1,6 @@
 class Api::V1::ArtistsController < ApplicationController
+  before_action :authenticate_buyer!, :buyer_signed_in?
+  
   def index
     if params[:genre]
       artists = Genre.find_by(name: params[:genre].downcase).artists
