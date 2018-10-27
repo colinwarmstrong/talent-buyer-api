@@ -1,17 +1,17 @@
 ## Pull Request Template
 
 ____ Wrote Tests
-____ Implemented 
+____ Implemented
 ____ Reviewed
 
-# Neccesary checkmarks:
+# Necesary checkmarks:
 
 - [ ] All Tests are Passing
 
 - [ ] The code will run locally
 
 ## Type of change
-- [ ] New feature 
+- [ ] New feature
 - [ ] Bug Fix
 - [ ] Refactor
 
@@ -39,4 +39,4 @@ closes #
 - [ ] I have fully tested my code
 
 # Please Include a link to a gif of your feelings about this branch
-Link: 
+Link:
