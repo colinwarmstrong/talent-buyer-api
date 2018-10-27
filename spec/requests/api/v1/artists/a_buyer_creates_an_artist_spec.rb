@@ -10,7 +10,6 @@ describe 'POST /api/v1/artists' do
     it 'will be stored in the database' do
       artist_payload = {  name: 'Yung Boi',
                           agency: 'Warner Bros. Entertainment',
-                          genres: 'Metal Incrementally',
                           songkick_id: 100,
                           image_url: 'http://amazon.com',
                           popularity: 78,
