@@ -15,6 +15,9 @@ Rails.application.routes.draw do
              }
   namespace :api do
     namespace :v1 do
+      namespace :buyers do
+        get '/:id/venues', to: 'venues#index'
+      end
       resources :venues, only: [:create, :show]
       resources :offers, only: [:create]
       resources :artists, only: [:create, :index]
