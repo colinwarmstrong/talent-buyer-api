@@ -10,8 +10,9 @@ class Api::V1::VenuesController < ApplicationController
   end
 
   def create
-    venue = current_buyer.venues.find_by_venue_songkick_id(venue_params[:venue_songkick_id]) || current_buyer.venues.create(venue_params)
+    venue = Venue.find_by_venue_songkick_id(venue_params[:venue_songkick_id]) || Venue.create(venue_params)
     if venue.id
+      current_buyer.buyer_venues.create(venue_id: venue.id)
       render json: venue, status: 201
     else
       render json: { message: 'Invalid venue parameters' }, status: 400
