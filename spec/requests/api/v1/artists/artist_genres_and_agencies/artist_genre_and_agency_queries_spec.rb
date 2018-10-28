@@ -95,6 +95,53 @@ describe 'Arist Genre Endpoints' do
       expect(second_artist[:spotify_url]).to eq(artist_1.spotify_url)
       expect(second_artist[:spotify_followers]).to eq(artist_1.spotify_followers)
     end
+
+    it 'returns all artists by specified genre and agency ordered alphabetically' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
+      artist_1 = Fabricate(:artist, name: 'blink-182', agency: 'Stark Enterprises')
+      artist_2 = Fabricate(:artist, name: 'ABBA', agency: 'Stark Enterprises')
+      artist_3 = Fabricate(:artist, name: 'Creed', agency: 'Hammer Enterprises Enterprises')
+      artist_4 = Fabricate(:artist, name: 'Dr Dre', agency: 'Hammer Enterprises')
+
+      genre_1 = artist_1.genres.create(name: 'rock')
+      artist_4.artist_genres.create(genre_id: genre_1.id)
+      genre_2 = artist_3.genres.create(name: 'rap')
+      artist_1.artist_genres.create(genre_id: genre_2.id)
+      artist_2.artist_genres.create(genre_id: genre_2.id)
+      artist_3.artist_genres.create(genre_id: genre_2.id)
+
+      get '/api/v1/artists?genre=rap&agency=Stark%20Enterprises&sort=alphabetical'
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      artists = JSON.parse(response.body, symbolize_names: true)
+      first_artist = artists.first
+      second_artist = artists.last
+
+      expect(artists).to be_an(Array)
+      expect(artists.length).to eq(2)
+      expect(first_artist[:name]).to eq(artist_2.name)
+      expect(first_artist[:agency]).to eq(artist_2.agency)
+      expect(first_artist[:songkick_id]).to eq(artist_2.songkick_id)
+      expect(first_artist[:popularity]).to eq(artist_2.popularity)
+      expect(first_artist[:image_url]).to eq(artist_2.image_url)
+      expect(first_artist[:spotify_id]).to eq(artist_2.spotify_id)
+      expect(first_artist[:spotify_url]).to eq(artist_2.spotify_url)
+      expect(first_artist[:spotify_followers]).to eq(artist_2.spotify_followers)
+      
+      expect(second_artist[:name]).to eq(artist_1.name)
+      expect(second_artist[:agency]).to eq(artist_1.agency)
+      expect(second_artist[:songkick_id]).to eq(artist_1.songkick_id)
+      expect(second_artist[:popularity]).to eq(artist_1.popularity)
+      expect(second_artist[:image_url]).to eq(artist_1.image_url)
+      expect(second_artist[:spotify_id]).to eq(artist_1.spotify_id)
+      expect(second_artist[:spotify_url]).to eq(artist_1.spotify_url)
+      expect(second_artist[:spotify_followers]).to eq(artist_1.spotify_followers)
+    end
+
     it 'returns all artists by specified genre and agency ordered by popularity' do
       buyer = Fabricate(:buyer)
       sign_in buyer
