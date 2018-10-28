@@ -12,6 +12,7 @@ RSpec.describe Venue, type: :model do
     it { should validate_uniqueness_of(:venue_songkick_id) }
   end
   context 'Relationships' do
+    it { should have_many(:offers) }
     it { should have_many(:buyer_venues) }
     it { should have_many(:buyers).through(:buyer_venues) }
   end

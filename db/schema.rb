@@ -70,9 +70,11 @@ ActiveRecord::Schema.define(version: 2018_10_26_231152) do
 
   create_table "offers", force: :cascade do |t|
     t.integer "status", default: 0
-    t.bigint "show_id"
+    t.bigint "buyer_id"
+    t.bigint "venue_id"
     t.bigint "artist_id"
     t.integer "guarantee"
+    t.date "date"
     t.text "bonuses"
     t.text "radius_clause"
     t.integer "total_expenses"
@@ -81,14 +83,8 @@ ActiveRecord::Schema.define(version: 2018_10_26_231152) do
     t.string "age_range"
     t.text "merch_split"
     t.index ["artist_id"], name: "index_offers_on_artist_id"
-    t.index ["show_id"], name: "index_offers_on_show_id"
-  end
-
-  create_table "shows", force: :cascade do |t|
-    t.bigint "venue_id"
-    t.date "date"
-    t.integer "show_status", default: 0
-    t.index ["venue_id"], name: "index_shows_on_venue_id"
+    t.index ["buyer_id"], name: "index_offers_on_buyer_id"
+    t.index ["venue_id"], name: "index_offers_on_venue_id"
   end
 
   create_table "venues", force: :cascade do |t|
@@ -106,6 +102,6 @@ ActiveRecord::Schema.define(version: 2018_10_26_231152) do
   add_foreign_key "buyer_venues", "buyers"
   add_foreign_key "buyer_venues", "venues"
   add_foreign_key "offers", "artists"
-  add_foreign_key "offers", "shows"
-  add_foreign_key "shows", "venues"
+  add_foreign_key "offers", "buyers"
+  add_foreign_key "offers", "venues"
 end

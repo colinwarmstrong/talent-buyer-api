@@ -7,10 +7,12 @@ class Offer < ApplicationRecord
                         :gross_potential,
                         :door_times,
                         :age_range,
-                        :merch_split
+                        :merch_split,
+                        :date
 
   belongs_to :artist
-  belongs_to :show
+  belongs_to :venue
+  belongs_to :buyer
 
-  enum status: { pending: 0, accepted: 1, rejected: 2 }
+  enum status: { pending: 0, confirmed: 1, rejected: 2 }
 end
