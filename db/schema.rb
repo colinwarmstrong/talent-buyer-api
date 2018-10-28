@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_10_26_231152) do
     t.bigint "buyer_id"
     t.bigint "venue_id"
     t.bigint "artist_id"
+    t.string "artist_name"
     t.integer "guarantee"
     t.date "date"
     t.text "bonuses"
