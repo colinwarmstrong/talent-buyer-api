@@ -11,9 +11,11 @@ RSpec.describe Offer, type: :model do
     it { should validate_presence_of(:door_times) }
     it { should validate_presence_of(:age_range) }
     it { should validate_presence_of(:merch_split) }
+    it { should validate_presence_of(:date) }
   end
   context 'Relationships' do
-    it { should belong_to(:show) }
+    it { should belong_to(:venue) }
     it { should belong_to(:artist) }
+    it { should belong_to(:buyer) }
   end
 end

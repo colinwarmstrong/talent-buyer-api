@@ -7,6 +7,7 @@ RSpec.describe Buyer, type: :model do
     it { should validate_presence_of(:email) }
   end
   context 'Relationships' do
+    it { should have_many(:offers) }
     it { should have_many(:buyer_venues) }
     it { should have_many(:venues).through(:buyer_venues) }
   end
