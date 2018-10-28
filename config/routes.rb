@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       namespace :buyers do
         get '/:id/venues', to: 'venues#index'
         get '/:id/offers', to: 'offers#index'
+        put '/:id/offers/:offer_id', to: 'offers#update'
       end
       resources :venues, only: [:create, :show]
       resources :offers, only: [:create]
