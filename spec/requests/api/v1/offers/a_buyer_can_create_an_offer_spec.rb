@@ -12,6 +12,7 @@ describe 'POST /api/v1/offers' do
 
       offer_payload = { venue_id: venue.id,
                         artist_id: artist.id,
+                        artist_name: artist.name,
                         buyer_id: @buyer.id,
                         guarantee: 10000,
                         bonuses: 'No bonuses',
@@ -21,7 +22,8 @@ describe 'POST /api/v1/offers' do
                         door_times: '9pm-12pm',
                         age_range: 'Over 21',
                         merch_split: '90-10',
-                        date: '1993-11-23'
+                        date: '1993-11-23',
+                        status: '0'
                       }
 
       expect(Offer.count).to eq(0)
