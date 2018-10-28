@@ -11,8 +11,8 @@ class Api::V1::Buyers::OffersController < ApplicationController
 
   def update
     offer = Offer.find_by_id(params[:offer_id])
-    verified = offer.update(offer_params)
-    if verified
+    if offer
+      offer.update(offer_params)
       render json: offer, status: 200
     else
       render json: {message: 'Invalid Input'}, status: 404
