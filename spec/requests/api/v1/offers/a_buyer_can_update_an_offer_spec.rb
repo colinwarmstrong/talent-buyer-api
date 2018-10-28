@@ -73,5 +73,26 @@ describe 'PUT /api/v1/offers/:id' do
       expect(Date.parse(new_offer[:date])).to eq(offer.date)
       expect(new_offer[:merch_split]).to eq(offer.merch_split)
     end
+
+    it 'will return a 404 if given an invalid attribute' do
+      venue  = Fabricate(:venue)
+      artist = Fabricate(:artist)
+      offer  = Fabricate(:offer, venue_id: venue.id, artist_id: artist.id, buyer_id: @buyer.id)
+
+      updated_offer_params = {
+        venue_id: 2,
+        artist_id: 4,
+        invalid_attribute: 'Invalid'
+      }
+
+      put "/api/v1/buyers/#{@buyer.id}/offers/#{offer.id + 1}", params: updated_offer_params.to_json, headers: {'Content-Type': 'application/json'}
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error[:message]).to eq('Invalid Input')
+    end
   end
 end
