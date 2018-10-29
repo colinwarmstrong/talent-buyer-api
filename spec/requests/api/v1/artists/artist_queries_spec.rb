@@ -158,4 +158,30 @@ describe 'Arist Endpoints' do
       expect(fourth_artist[:spotify_followers]).to eq(artist_4.spotify_followers)
     end
   end
+
+  context '/api/v1/artists/:id' do
+    it 'returns the specified artist' do
+      buyer = Fabricate(:buyer)
+      sign_in buyer
+
+      artist_1 = Fabricate(:artist)
+
+      get "/api/v1/artists/#{artist_1.id}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      artist = JSON.parse(response.body, symbolize_names: true)
+
+      expect(artist).to be_a(Hash)
+      expect(artist[:name]).to eq(artist_1.name)
+      expect(artist[:agency]).to eq(artist_1.agency)
+      expect(artist[:image_url]).to eq(artist_1.image_url)
+      expect(artist[:popularity]).to eq(artist_1.popularity)
+      expect(artist[:songkick_id]).to eq(artist_1.songkick_id)
+      expect(artist[:spotify_url]).to eq(artist_1.spotify_url)
+      expect(artist[:spotify_id]).to eq(artist_1.spotify_id)
+      expect(artist[:spotify_followers]).to eq(artist_1.spotify_followers)
+    end
+  end
 end
