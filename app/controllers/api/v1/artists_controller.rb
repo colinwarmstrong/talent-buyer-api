@@ -8,6 +8,10 @@ class Api::V1::ArtistsController < ApplicationController
     artist_sort
   end
 
+  def show
+    render json: Artist.find(params[:id]), status: 200
+  end
+
   def create
     artist = Artist.create(artist_payload)
     if artist.id

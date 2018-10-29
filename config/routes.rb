@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       end
       resources :venues, only: [:create, :show]
       resources :offers, only: [:create]
-      resources :artists, only: [:create, :index]
+      resources :artists, only: [:create, :index, :show]
       resources :shows, only: [:create]
     end
   end
