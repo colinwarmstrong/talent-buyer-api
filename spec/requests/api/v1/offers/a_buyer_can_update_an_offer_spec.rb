@@ -29,11 +29,45 @@ describe 'PUT /api/v1/offers/:id' do
 
       edited_offer = JSON.parse(response.body, symbolize_names: true)
 
+      expect(edited_offer[:status]).to eq(offer.status)
       expect(edited_offer[:venue_id]).to eq(offer.venue_id)
       expect(edited_offer[:buyer_id]).to eq(offer.buyer_id)
       expect(edited_offer[:artist_id]).to eq(offer.artist_id)
       expect(edited_offer[:guarantee]).to eq(updated_offer_params[:guarantee])
       expect(edited_offer[:radius_clause]).to eq(updated_offer_params[:radius_clause])
+      expect(edited_offer[:bonuses]).to eq(offer.bonuses)
+      expect(edited_offer[:total_expenses]).to eq(offer.total_expenses)
+      expect(edited_offer[:gross_potential]).to eq(offer.gross_potential)
+      expect(edited_offer[:door_times]).to eq(offer.door_times)
+      expect(edited_offer[:age_range]).to eq(offer.age_range)
+      expect(Date.parse(edited_offer[:date])).to eq(offer.date)
+      expect(edited_offer[:merch_split]).to eq(offer.merch_split)
+    end
+
+    it 'will be correctly update a status' do
+      venue  = Fabricate(:venue)
+      artist = Fabricate(:artist)
+      offer  = Fabricate(:offer, venue_id: venue.id, artist_id: artist.id, buyer_id: @buyer.id)
+
+      expect(offer.status).to eq('pending')
+
+      updated_offer_params = {
+        status: 'confirmed'
+      }
+
+      put "/api/v1/buyers/#{@buyer.id}/offers/#{offer.id}", params: updated_offer_params.to_json, headers: {'Content-Type': 'application/json'}
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      edited_offer = JSON.parse(response.body, symbolize_names: true)
+
+      expect(edited_offer[:status]).to eq(updated_offer_params[:status])
+      expect(edited_offer[:venue_id]).to eq(offer.venue_id)
+      expect(edited_offer[:buyer_id]).to eq(offer.buyer_id)
+      expect(edited_offer[:artist_id]).to eq(offer.artist_id)
+      expect(edited_offer[:guarantee]).to eq(offer.guarantee)
+      expect(edited_offer[:radius_clause]).to eq(offer.radius_clause)
       expect(edited_offer[:bonuses]).to eq(offer.bonuses)
       expect(edited_offer[:total_expenses]).to eq(offer.total_expenses)
       expect(edited_offer[:gross_potential]).to eq(offer.gross_potential)
