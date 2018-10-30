@@ -12,6 +12,17 @@ class Api::V1::FavoriteArtistsController < ApplicationController
     end
   end
 
+  def destroy
+    favorite_artist = current_buyer.favorite_artists.includes(:artist).find_by_artist_id(params[:id])
+    if favorite_artist
+      artist_name = favorite_artist.artist.name
+      favorite_artist.destroy
+      render json: {message: "#{artist_name} removed from favorites"}, status: 200
+    else
+      render json: {message: "Favorite Artist not found"}, status: 404
+    end
+  end
+
   private
   def favorite_artist_params
     params.permit(:artist_id)
