@@ -1,4 +1,7 @@
 class Api::V1::FavoriteArtistsController < ApplicationController
+  def index
+    render json: current_buyer.artists, status: 200
+  end
 
   def create
     artist = Artist.find_by_id(params[:artist_id])

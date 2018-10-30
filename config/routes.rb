@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         put '/:id/offers/:offer_id', to: 'offers#update'
       end
       post '/favorite_artists', to: 'favorite_artists#create'
+      get '/favorite_artists', to: 'favorite_artists#index'
       resources :venues, only: [:create, :show]
       resources :offers, only: [:create]
       resources :artists, only: [:create, :index, :show]
