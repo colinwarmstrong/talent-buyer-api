@@ -15,7 +15,8 @@ class Api::V1::ArtistsController < ApplicationController
   def create
     artist = Artist.create(artist_payload)
     if artist.id
-      link_genres(artist, artist_params[:genres])
+      binding.pry
+      ArtistGenreLinker.link(artist, artist_params[:genres])
       render json: artist, status: 201
     else
       render json: { message: 'Invalid artist parameters.' }, status: 400
