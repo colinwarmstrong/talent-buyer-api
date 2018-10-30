@@ -6,7 +6,7 @@ describe ArtistGenreLinker do
       artist = Fabricate(:artist, popularity: 100, name: 'Linkin Park')
       genres = "Rock, Rap-Rock, Claire's favorite band"
 
-      expect(ArtistGenreLinker(artis, genres).link).to change{ArtistGenre.count}.by(3)
+      expect{ArtistGenreLinker.link(artist, genres)}.to change{ArtistGenre.count}.by(3)
       expect(artist.genres.count).to eq(3)
     end
   end

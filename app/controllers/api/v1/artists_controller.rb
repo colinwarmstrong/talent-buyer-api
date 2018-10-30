@@ -15,7 +15,6 @@ class Api::V1::ArtistsController < ApplicationController
   def create
     artist = Artist.create(artist_payload)
     if artist.id
-      binding.pry
       ArtistGenreLinker.link(artist, artist_params[:genres])
       render json: artist, status: 201
     else
@@ -40,13 +39,6 @@ class Api::V1::ArtistsController < ApplicationController
       spotify_followers: artist_params[:spotify_followers],
       spotify_id: artist_params[:spotify_id]
     }
-  end
-
-  def link_genres(artist, genres_list)
-    genres_list.split(', ').each do |genre|
-      genre = Genre.find_or_create_by(name: genre.downcase)
-      ArtistGenre.create(artist_id: artist.id, genre_id: genre.id)
-    end
   end
 
   def filter_artist_genres
