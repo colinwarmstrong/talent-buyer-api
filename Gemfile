@@ -31,7 +31,6 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'newrelic_rpm'
 
 group :development, :test do
-  gem 'capybara'
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'pry'

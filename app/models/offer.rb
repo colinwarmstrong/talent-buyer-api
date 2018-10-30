@@ -15,5 +15,5 @@ class Offer < ApplicationRecord
   belongs_to :venue
   belongs_to :buyer
 
-  enum status: { pending: 0, confirmed: 1, rejected: 2 }
+  enum status: { pending: 0, confirmed: 1, rejected: 2, cancelled: 3 }
 end
