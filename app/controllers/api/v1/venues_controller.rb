@@ -10,7 +10,7 @@ class Api::V1::VenuesController < ApplicationController
   end
 
   def create
-    venue = Venue.find_by_venue_songkick_id(venue_params[:venue_songkick_id]) || Venue.create(venue_params)
+    venue = Venue.where(venue_params).first_or_create
     if venue.id
       current_buyer.buyer_venues.create(venue_id: venue.id)
       render json: venue, status: 201
