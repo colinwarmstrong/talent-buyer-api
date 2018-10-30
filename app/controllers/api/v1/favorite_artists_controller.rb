@@ -5,7 +5,9 @@ class Api::V1::FavoriteArtistsController < ApplicationController
 
   def create
     artist = Artist.find_by_id(params[:artist_id])
-    if artist
+    if artist && FavoriteArtist.find_by(artist_id: artist.id, buyer_id: current_buyer.id)
+      render json: { message: "#{artist.name} is already in favorites", data: current_buyer.favorite_artists.find_by(artist_id: artist.id) }, status: 201
+    elsif artist
       render json: { message: "Added #{artist.name} to favorites", data: current_buyer.favorite_artists.create(favorite_artist_params) }, status: 201
     else
       render json: {message: "Artist not found"}, status: 400
