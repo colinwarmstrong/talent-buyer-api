@@ -33,8 +33,12 @@ describe 'POST /api/v1/artists' do
       expect(new_artist).to have_key(:id)
       expect(new_artist[:name]).to eq(artist_payload[:name])
       expect(new_artist[:agency]).to eq(artist_payload[:agency])
-      expect(new_artist[:artist_songkick_id]).to eq(artist_payload[:artist_songkick_id])
-      expect(new_artist[:artist_spotify_id]).to eq(artist_payload[:artist_spotify_id])
+      expect(new_artist[:songkick_id]).to eq(artist_payload[:songkick_id])
+      expect(new_artist[:spotify_id]).to eq(artist_payload[:spotify_id])
+      expect(new_artist[:image_url]).to eq(artist_payload[:image_url])
+      expect(new_artist[:popularity]).to eq(artist_payload[:popularity])
+      expect(new_artist[:spotify_followers]).to eq(artist_payload[:spotify_followers])
+      expect(new_artist[:spotify_url]).to eq(artist_payload[:spotify_url])
     end
 
     it 'will not be created if parameters incorrect' do
