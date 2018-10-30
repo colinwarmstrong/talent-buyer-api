@@ -9,5 +9,7 @@ describe ArtistGenreLinker do
       expect{ArtistGenreLinker.link(artist, genres)}.to change{ArtistGenre.count}.by(3)
       expect(artist.genres.count).to eq(3)
     end
+
+    # it '#link - will not '
   end
 end
