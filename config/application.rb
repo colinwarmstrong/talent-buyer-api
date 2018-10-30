@@ -28,7 +28,7 @@ module TalentBuyerApi
         resource '*',
         headers: :any,
         expose: ['Authorization'],
-        methods: [:get, :post, :options, :put]
+        methods: [:get, :post, :options, :put, :delete]
       end
     end
 
