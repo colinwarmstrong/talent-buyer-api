@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'POST /api/v1/favorite_artists/:id' do
+describe 'POST /api/v1/favorite_artists' do
   context 'a buyer favoriting an artist' do
     before :each do
       @buyer = Fabricate(:buyer)
