@@ -13,9 +13,9 @@ class Api::V1::ArtistsController < ApplicationController
   end
 
   def create
-    artist = Artist.create(artist_payload)
-    if artist.id
-      link_genres(artist, artist_params[:genres])
+    artist = Artist.create(artist_params)
+    if artist.save
+      link_genres(artist, params[:genres])
       render json: artist, status: 201
     else
       render json: { message: 'Invalid artist parameters.' }, status: 400
@@ -25,20 +25,7 @@ class Api::V1::ArtistsController < ApplicationController
   private
 
   def artist_params
-    params.permit(:name, :agency, :genres, :songkick_id, :popularity, :image_url, :spotify_url, :spotify_followers, :spotify_id, :genre)
-  end
-
-  def artist_payload
-    {
-      name: artist_params[:name],
-      agency: artist_params[:agency],
-      songkick_id: artist_params[:songkick_id],
-      popularity: artist_params[:popularity],
-      image_url: artist_params[:image_url],
-      spotify_url: artist_params[:spotify_url],
-      spotify_followers: artist_params[:spotify_followers],
-      spotify_id: artist_params[:spotify_id]
-    }
+    params.permit(:name, :agency, :songkick_id, :popularity, :image_url, :spotify_url, :spotify_followers, :spotify_id, :genre)
   end
 
   def link_genres(artist, genres_list)

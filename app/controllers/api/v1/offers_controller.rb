@@ -3,7 +3,7 @@ class Api::V1::OffersController < ApplicationController
 
   def create
     offer = Offer.create(offer_payload)
-    if offer.id
+    if offer.save
       render json: offer, status: 201
     else
       render json: { message: 'Invalid offer parameters.' }, status: 400
@@ -40,7 +40,7 @@ class Api::V1::OffersController < ApplicationController
     if offer_params[:artist_name]
       @artist_id ||= Artist.find_by(name: offer_params[:artist_name]).id
     else
-      return 0
+      return
     end
   end
 end
