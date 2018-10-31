@@ -15,7 +15,8 @@ class Api::V1::ArtistsController < ApplicationController
   end
 
   def create
-    artist = Artist.create(artist_payload)
+    artist = Artist.find_or_create_by(songkick_id: artist_payload[:songkick_id])
+    artist.update(artist_payload)
     if artist.id
       ArtistGenreLinker.link(artist, artist_params[:genres])
       render json: artist, status: 201
