@@ -21,8 +21,6 @@ RSpec.describe 'buyer endpoints' do
       buyer_venue_1 = buyer_venues.first
       buyer_venue_2 = buyer_venues.last
 
-      binding.pry
-
       expect(buyer_venues).to be_an(Array)
       expect(buyer_venues.length).to eq(2)
 
