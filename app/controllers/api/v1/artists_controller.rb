@@ -1,7 +1,6 @@
 require './app/modules/artist_utilities'
 
 class Api::V1::ArtistsController < ApplicationController
-  before_action :authenticate_buyer!, :buyer_signed_in?
   include ArtistUtilities
 
   def index

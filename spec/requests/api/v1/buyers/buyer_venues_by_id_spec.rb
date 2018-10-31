@@ -4,8 +4,12 @@ RSpec.describe 'buyer endpoints' do
   context 'GET /api/v1/buyers/:id/venues' do
     it 'returns all venues associated with a buyer' do
       buyer = Fabricate(:buyer)
-      venue = Fabricate(:venue)
-      buyer.buyer_venues.create(venue_id: venue.id)
+      venue_1 = Fabricate(:venue)
+      venue_2 = Fabricate(:venue, name: 'Fillmmore', venue_songkick_id: 12)
+
+      buyer.buyer_venues.create(venue_id: venue_1.id)
+      buyer.buyer_venues.create(venue_id: venue_2.id)
+
       sign_in buyer
 
       get "/api/v1/buyers/#{buyer.id}/venues"
@@ -14,16 +18,29 @@ RSpec.describe 'buyer endpoints' do
       expect(response.status).to eq(200)
 
       buyer_venues = JSON.parse(response.body, symbolize_names: true)
-      buyer_venue = buyer_venues.first
+      buyer_venue_1 = buyer_venues.first
+      buyer_venue_2 = buyer_venues.last
 
-      expect(buyer_venues.length).to eq(1)
-      expect(buyer_venue[:name]).to eq(venue.name)
-      expect(buyer_venue[:street_address]).to eq(venue.street_address)
-      expect(buyer_venue[:city]).to eq(venue.city)
-      expect(buyer_venue[:state]).to eq(venue.state)
-      expect(buyer_venue[:zip]).to eq(venue.zip)
-      expect(buyer_venue[:capacity]).to eq(venue.capacity)
-      expect(buyer_venue[:venue_songkick_id]).to eq(venue.venue_songkick_id)
+      binding.pry
+
+      expect(buyer_venues).to be_an(Array)
+      expect(buyer_venues.length).to eq(2)
+
+      expect(buyer_venue_1[:name]).to eq(venue_1.name)
+      expect(buyer_venue_1[:street_address]).to eq(venue_1.street_address)
+      expect(buyer_venue_1[:city]).to eq(venue_1.city)
+      expect(buyer_venue_1[:state]).to eq(venue_1.state)
+      expect(buyer_venue_1[:zip]).to eq(venue_1.zip)
+      expect(buyer_venue_1[:capacity]).to eq(venue_1.capacity)
+      expect(buyer_venue_1[:venue_songkick_id]).to eq(venue_1.venue_songkick_id)
+
+      expect(buyer_venue_2[:name]).to eq(venue_2.name)
+      expect(buyer_venue_2[:street_address]).to eq(venue_2.street_address)
+      expect(buyer_venue_2[:city]).to eq(venue_2.city)
+      expect(buyer_venue_2[:state]).to eq(venue_2.state)
+      expect(buyer_venue_2[:zip]).to eq(venue_2.zip)
+      expect(buyer_venue_2[:capacity]).to eq(venue_2.capacity)
+      expect(buyer_venue_2[:venue_songkick_id]).to eq(venue_2.venue_songkick_id)
     end
   end
 end
