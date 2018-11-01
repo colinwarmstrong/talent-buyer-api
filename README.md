@@ -4,6 +4,8 @@
 
 Talent Buyer API is RESTful JSON API built to serve as the backend for [Talent Buyer](https://github.com/GraySmith00/talent-buyer-client): a tool for music talent buyers to forecast concerts, organize offers, review riders, and settle financials.
 
+Additionally, this repository uses Talent Buyer Scraper -- a microservice which keeps the artist database up to date by scraping Talent Agency sites and posting new artists or changes to an existing artist's information. Using the [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) the site is scheduled to run updates every hour. The repository can be found [here](https://github.com/GraySmith00/talent-buyer-scrape), and the code (deployed through Heroku) can be found [here](https://dashboard.heroku.com/apps/talentbuyer-scraper). 
+
 This project was built as part the backend curriculum at Turing School of Software and Design.  The project spec can be found [here](http://frontend.turing.io/projects/capstone.html).
 
 
