@@ -94,5 +94,32 @@ describe 'POST /api/v1/artists' do
 
       expect(new_artist[:message]).to eq('Invalid artist parameters.')
     end
+    it 'does not create duplicate artist_genres' do
+      artist_1 = Fabricate(:artist, name: 'Bad')
+      artist_2 = Fabricate(:artist, name: 'Blad')
+
+      genre_1 = artist_1.genres.create(name: 'rock')
+      artist_2.artist_genres.create(genre_id: genre_1.id)
+
+      artist_payload = {  name: 'Bad',
+                          agency: 'Heavy Metal Boiz',
+                          songkick_id: 1234,
+                          image_url: 'yowutup',
+                          popularity: 12,
+                          spotify_id: 'yowutup',
+                          spotify_url: 'yowutup',
+                          spotify_followers: 12222,
+                          genres: 'Rock'
+                        }
+
+      expect(ArtistGenre.count).to eq(2)
+
+      post '/api/v1/artists', params: artist_payload.to_json, headers: {'Content-Type': 'application/json'}
+
+      expect(ArtistGenre.count).to eq(2)
+
+      expect(response).to be_successful
+      expect(response.status).to eq(201)
+    end
   end
 end
