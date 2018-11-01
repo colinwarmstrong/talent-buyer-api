@@ -78,7 +78,7 @@ bundle exec rspec
 
 ## Endpoints
 
-All endpoints can be accessed by appending them to the root URL `https://talent-buyer-api.herokuapp.com`
+Almost all endpoints are protected by authentication and will require a valid JWT token to be accessed.  This makes it difficult to actually hit the endpoints but they can accessed by appending them to the root URL `https://talent-buyer-api.herokuapp.com`
 
 ##### Authentication Endpoints
 - `POST /signup`
@@ -119,7 +119,8 @@ All endpoints can be accessed by appending them to the root URL `https://talent-
 	[{:id=>1, 
       :name=>"ol saloon",
       :street_address=>"123 Swan Street",
-      :city=>"Panama City", :state=>"Kansas",
+      :city=>"Panama City",
+      :state=>"Kansas",
       :zip=>12345,
       :capacity=>47,
       :venue_songkick_id=>47},
@@ -167,46 +168,138 @@ All endpoints can be accessed by appending them to the root URL `https://talent-
   	  :artist_name=>"Sepultura"}]
     ```
 - `PUT /api/v1/buyers/:buyer_id/offers/:offer_id`
+	- Route for updating an existing offer. Returns: 
+
 	```
-    {
-    	"message": "Successfully removed {FOODNAME} from {MEALNAME}"
-	}
+    {:id=>1,
+     :venue_id=>1,
+     :artist_id=>1,
+     :buyer_id=>1,
+     :guarantee=>9002,
+     :bonuses=>"Free chips in the dressing room",
+     :radius_clause=>"Nowhere in the Denver metro area within 40 days",
+     :total_expenses=>5000,
+     :gross_potential=>4001,
+     :door_times=>"9pm - 11pm",
+     :age_range=>"18+",
+     :merch_split=>"80/20 band/venue",
+     :date=>"2018-12-24",
+     :status=>"pending",
+     :artist_name=>"Sepultura"}
     ```
-    - Route for updating an existing offer:
 
-##### Favorites Endpoints
-- GET [/api/v1/favorite_foods](https://quantifiedself1.herokuapp.com/api/v1/favorite_foods)
-	- Returns information about foods that are eaten most frequently in the following format:
+#### Artist Endpoints
+- `GET /api/v1/artists`
+	- Returns information about all artists in the database:
+  ```
+  [{:id=>1, :name=>"Beastie Bois", :agency=>"Heavy Metal Boiz", :image_url=>"yowutup", :popularity=>12, :songkick_id=>1234, :spotify_url=>"yowutup", :spotify_id=>"yowutup", :spotify_followers=>12222},
+   {:id=>2, :name=>"Beach Bois", :agency=>"Heavy Metal Boiz", :image_url=>"yowutup", :popularity=>12, :songkick_id=>1234, :spotify_url=>"yowutup", :spotify_id=>"yowutup", :spotify_followers=>12222},
+   {:id=>3, :name=>"New Bois", :agency=>"Heavy Metal Boiz", :image_url=>"yowutup", :popularity=>12, :songkick_id=>1234, :spotify_url=>"yowutup", :spotify_id=>"yowutup", :spotify_followers=>12222},
+   {:id=>4, :name=>"Franchise Bois", :agency=>"Heavy Metal Boiz", :image_url=>"yowutup", :popularity=>12, :songkick_id=>1234, :spotify_url=>"yowutup", :spotify_id=>"yowutup", :spotify_followers=>12222}]
+   ```
+   
+- `GET /api/v1/artists/:artist_id`
+	- Returns information about a specific user:
 	```
-	[
+    {:id=>1, 
+     :name=>"Sepultura",
+     :agency=>"Heavy Metal Boiz",
+     :image_url=>"yowutup",
+     :popularity=>12,
+     :songkick_id=>1234,
+     :spotify_url=>"yowutup",
+     :spotify_id=>"yowutup",
+     :spotify_followers=>12222}
+    ```
+
+- `POST /api/v1/artists`
+	- Updates an existing artist. Expected params are:
+	```
+    {  name: 'Yung Boi',
+       agency: 'Warner Bros. Entertainment',
+       songkick_id: 100,
+       image_url: 'http://amazon.com',
+       popularity: 78,
+       spotify_id: '101',
+       spotify_url: 'www.example.com',
+       spotify_followers: 101,
+       genres: 'Rock, Reggae'
+     }
+    ```
+    
+ - `/api/v1/favorite_artists`
+ 	- Returns all favorited artists for a user:
+ ```
+ [{:id=>1, :name=>"Sepultura", :agency=>"Heavy Metal Boiz", :image_url=>"yowutup", :popularity=>12, :songkick_id=>1234, :spotify_url=>"yowutup", :spotify_id=>"yowutup", :spotify_followers=>12222},
+ {:id=>2, :name=>"Boi Jovi", :agency=>"Zimbabwe", :image_url=>"www.wuh.com", :popularity=>7, :songkick_id=>7, :spotify_url=>"www.wikipedia.org", :spotify_id=>"7", :spotify_followers=>8}]
+ ```
+ 
+ - `POST /api/v1/artists`
+ 	- Adds an artist to a user's favorites. Expected params:
+ 	```
       {
-        "timesEaten": 4,
-        "foods":
-          [
-            {
-              "name": "Banana",
-              "calories": 200,
-              "mealsWhenEaten": ["Breakfast", "Dinner"]
-            },
-      },
-      "timesEaten": 3,
-      "foods":
-        [
-          {
-            "name": "Strawberries",
-            "calories": 200,
-            "mealsWhenEaten": ["Breakfast", "Lunch", "Dinner"]
-          },
-          {
-            "name": "Almonds"
-            "calories": 800,
-            "mealsWhenEaten": ["Snacks"]
-          }
-        ]
+        artist_id: <artist_id>
       }
-  ]
+    ```
+    -Returns:
+    ```
+    { message: "Added <artist_name> to favorites" }
+    ```
+    
+ - `DELETE /api/v1/favorite_artists/:artist_id`
+ 	- Removes an artist from a user's favorites. Returns:
+ 	```
+    { message: <artist_name> removed from favorites" }
+    ```
+    
+#### Venue Endpoints
+- `GET /api/v1/venues/:id`
+	- Gets information about a specific venue:
 	```
-
+  {:id=>1,
+   :name=>"Sepultura",
+   :agency=>"Heavy Metal Boiz",
+   :image_url=>"yowutup",
+   :popularity=>12,
+   :songkick_id=>1234,
+   :spotify_url=>"yowutup",
+   :spotify_id=>"yowutup",
+   :spotify_followers=>12222}
+    ```
+    
+- `POST /api/v1/venues`
+	- Creates a new venue. Expected params:
+	```
+    { name: 'Weezy',
+      street_address: '1234 Swan Street',
+      city: 'A-Town',
+      state: 'Confusion',
+      zip: '12345',
+      capacity: 23,
+      venue_songkick_id: 98
+     }
+    ```
+    
+#### Buyer Endpoints
+- `POST /api/v1/offers`
+	- Creates a new offer. Expected params are:
+	```
+    venue_id: venue.id,
+    artist_id: artist.id,
+    artist_name: artist.name,
+    buyer_id: @buyer.id,
+    guarantee: 10000,
+    bonuses: 'No bonuses',
+    radius_clause: 'No shows within 100 miles ever',
+    total_expenses: 12000,
+    gross_potential: 15000,
+    door_times: '9pm-12pm',
+    age_range: 'Over 21',
+    merch_split: '90-10',
+    date: '1993-11-23',
+    status: '0'
+    ```
+    
 ## Deployment
 
 Talent Buyer API is deployed through [Heroku](https://www.heroku.com/) and hosted at [https://talent-buyer-api.herokuapp.com/](https://talent-buyer-api.herokuapp.com/).
