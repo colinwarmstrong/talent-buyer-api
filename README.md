@@ -280,7 +280,7 @@ Almost all endpoints are protected by authentication and will require a valid JW
      }
     ```
     
-#### Buyer Endpoints
+#### Offer Endpoints
 - `POST /api/v1/offers`
 	- Creates a new offer. Expected params are:
 	```
