@@ -172,7 +172,7 @@ describe 'Arist Endpoints' do
       expect(response.status).to eq(200)
 
       artist = JSON.parse(response.body, symbolize_names: true)
-
+      
       expect(artist).to be_a(Hash)
       expect(artist[:name]).to eq(artist_1.name)
       expect(artist[:agency]).to eq(artist_1.agency)

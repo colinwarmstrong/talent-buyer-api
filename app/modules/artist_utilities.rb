@@ -1,27 +1,21 @@
 module ArtistUtilities
   def artist_payload
-    {
-      name: artist_params[:name],
+    { name: artist_params[:name],
       agency: artist_params[:agency],
       songkick_id: artist_params[:songkick_id],
       popularity: artist_params[:popularity],
       image_url: artist_params[:image_url],
       spotify_url: artist_params[:spotify_url],
       spotify_followers: artist_params[:spotify_followers],
-      spotify_id: artist_params[:spotify_id]
-    }
+      spotify_id: artist_params[:spotify_id] }
   end
 
   def filter_artist_genres
-    if params[:genre]
-      @artists = Genre.find_by(name: params[:genre].downcase).artists
-    end
+    @artists = Genre.find_by(name: params[:genre].downcase).artists if params[:genre]
   end
 
   def filter_artist_agency
-    if params[:agency]
-      @artists = @artists.where('lower(agency) = ?', params[:agency].downcase)
-    end
+    @artists = @artists.where('lower(agency) = ?', params[:agency].downcase) if params[:agency]
   end
 
   def artist_sort

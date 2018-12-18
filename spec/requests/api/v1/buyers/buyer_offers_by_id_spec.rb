@@ -19,7 +19,7 @@ RSpec.describe 'buyer endpoints' do
       buyer_offers = JSON.parse(response.body, symbolize_names: true)
       first_buyer_offer = buyer_offers.first
       second_buyer_offer = buyer_offers.last
-
+      
       expect(buyer_offers).to be_an(Array)
       expect(buyer_offers.length).to eq(2)
 
@@ -47,6 +47,7 @@ RSpec.describe 'buyer endpoints' do
       expect(second_buyer_offer[:merch_split]).to eq(offer_2.merch_split)
       expect(second_buyer_offer[:artist_name]).to eq(offer_2.artist_name)
     end
+
     it 'returns all venues associated with a buyer by date' do
       buyer = Fabricate(:buyer)
       artist = Fabricate(:artist)

@@ -13,12 +13,12 @@ RSpec.describe 'GET api/v1/venues/:id' do
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
-      got_venue = JSON.parse(response.body, symbolize_names: true)
-
-      expect(got_venue).to have_key(:name)
-      expect(got_venue).to have_key(:street_address)
-      expect(got_venue[:name]).to eq(venue[:name])
-      expect(got_venue[:street_address]).to eq(venue[:street_address])
+      returned_venue = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(returned_venue).to have_key(:name)
+      expect(returned_venue).to have_key(:street_address)
+      expect(returned_venue[:name]).to eq(venue[:name])
+      expect(returned_venue[:street_address]).to eq(venue[:street_address])
     end
     it 'does not get a non-existant venue' do
       get "/api/v1/venues/5"

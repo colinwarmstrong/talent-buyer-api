@@ -28,7 +28,7 @@ describe 'PUT /api/v1/offers/:id' do
       expect(response.status).to eq(200)
 
       edited_offer = JSON.parse(response.body, symbolize_names: true)
-
+      
       expect(edited_offer[:status]).to eq(offer.status)
       expect(edited_offer[:venue_id]).to eq(offer.venue_id)
       expect(edited_offer[:buyer_id]).to eq(offer.buyer_id)

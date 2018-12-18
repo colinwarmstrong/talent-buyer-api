@@ -15,7 +15,7 @@ class Api::V1::Buyers::OffersController < ApplicationController
       offer.update(offer_params)
       render json: offer, status: 200
     else
-      render json: {message: 'Invalid Input'}, status: 404
+      render json: { message: 'Invalid Input' }, status: 404
     end
   end
 

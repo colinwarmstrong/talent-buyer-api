@@ -10,7 +10,7 @@ class Api::V1::FavoriteArtistsController < ApplicationController
     elsif artist
       render json: { message: "Added #{artist.name} to favorites", data: current_buyer.favorite_artists.create(favorite_artist_params) }, status: 201
     else
-      render json: {message: "Artist not found"}, status: 400
+      render json: {message: 'Artist not found'}, status: 400
     end
   end
 
@@ -21,11 +21,12 @@ class Api::V1::FavoriteArtistsController < ApplicationController
       favorite_artist.destroy
       render json: { message: "#{artist_name} removed from favorites" }, status: 200
     else
-      render json: { message: "Favorite Artist not found" }, status: 404
+      render json: { message: 'Favorite Artist not found' }, status: 404
     end
   end
 
   private
+
   def favorite_artist_params
     params.permit(:artist_id)
   end
